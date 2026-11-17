@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DiamanTRex Labs — Протокол «Нейронная колея»</title>
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#0d0f12">
+    <link rel="apple-touch-icon" href="./icon.svg">
+
+    <style>
+        /* Базовые переменные ДНК бренда: минимализм, анти-bloatware, хищный контраст */
+        :root {
+            --bg-dark: #0d0f12;
+            --card-bg: #161a20;
+            --text-main: #e6edf3;
+            --text-muted: #8b949e;
+            --accent-emerald: #10b981; /* Цвет D-Rex */
+            --accent-diamond: #38bdf8; /* Цвет бриллианта */
+            --border-color: #262c36;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 720px;
+            width: 100%;
+        }
+
+        /* Шапка с логотипом и пасхалкой */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 32px;
+        }
+
+        .brand {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .brand span {
+            color: var(--accent-emerald);
+        }
+
+        .d-rex-badge {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+            user-select: none;
+        }
+
+        .d-rex-badge:hover {
+            border-color: var(--accent-emerald);
+            transform: scale(1.05);
+        }
+
+        /* Главный экран (Hero) */
+        .hero {
+            margin-bottom: 40px;
+        }
+
+        .tag {
+            display: inline-block;
+            color: var(--accent-diamond);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+        }
+
+        /* Карточки принципов (Grid) */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .card h3 {
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+            color: var(--accent-emerald);
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Интерактивный блок: Прокатка нейронной колеи */
+        .lab-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 40px;
+        }
+
+        .lab-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 12px;
+            background: var(--bg-dark);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 15%;
+            background: linear-gradient(90deg, var(--accent-diamond), var(--accent-emerald));
+            transition: width 0.3s ease;
+        }
+
+        .controls {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: var(--accent-emerald);
+            color: #000;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: opacity 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        button.secondary {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        button.secondary:hover {
+            border-color: var(--accent-diamond);
+        }
+
+        .log-screen {
+            margin-top: 16px;
+            padding: 12px;
+            background: var(--bg-dark);
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: var(--accent-diamond);
+            min-height: 45px;
+        }
+
+        /* Репутационный щит в подвале */
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="brand">Diaman<span>TR</span>ex Labs</div>
+        <div class="d-rex-badge" id="drexBtn" title="Нажми для проверки ДНК">💎🦖 v0.1-PWA</div>
+    </header>
+
+    <section class="hero">
+        <span class="tag">Методология «На собственной шкуре»</span>
+        <h1>Сначала погружение в практику. Потом рефлексия и декомпозиция.</h1>
+        <p class="subtitle">
+            Теория без опыта создаёт иллюзию знания. Прокатай прямую нейронную колею через реальное действие, чтобы разблокировать смежные ветки мышления.
+        </p>
+    </section>
+
+    <section class="grid">
+        <div class="card">
+            <h3>1. Прямая колея</h3>
+            <p>Делаем первый рабочий прототип без вылизывания. Снимаем страх чистого листа и запускаем моторную память.</p>
+        </div>
+        <div class="card">
+            <h3>2. Разбор полётов</h3>
+            <p>Изучаем созданный код и архитектуру постфактум. Мозг сразу видит, зачем нужна каждая строчка, потому что уже потрогал результат.</p>
+        </div>
+        <div class="card">
+            <h3>3. Смежные ветки</h3>
+            <p>Когда база вшита на подкорку, открываются новые паттерны: от PWA-движков до микроконтроллеров и монетизации.</p>
+        </div>
+    </section>
+
+    <section class="lab-box">
+        <div class="lab-header">
+            <strong>Тренажёр: Глубина нейронной колеи</strong>
+            <span id="percentText">15%</span>
+        </div>
+        <div class="progress-track">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="controls">
+            <button id="diveBtn">Погрузиться в опыт (+20%)</button>
+            <button class="secondary" id="branchBtn">Проверить смежную ветку</button>
+            <button class="secondary" id="resetBtn">Сброс</button>
+        </div>
+        <div class="log-screen" id="logScreen">
+            > Система готова. Ожидание первого практического действия...
+        </div>
+    </section>
+
+    <footer>
+        Анти-bloatware манифест • Вес страницы: ~5 КБ • Часть прибыли идёт на помощь животным 🐾
+    </footer>
+</div>
+
+<script>
+    // Минималистичная логика без фреймворков
+    let depth = 15;
+    const fill = document.getElementById('progressFill');
+    const percentText = document.getElementById('percentText');
+    const logScreen = document.getElementById('logScreen');
+
+    const branches = [
+        "Ветка разблокирована: Понимание CSS Grid и адаптивной вёрстки без Bootstrap.",
+        "Ветка разблокирована: Работа с DOM-элементами и событиями клика на чистом JS.",
+        "Ветка разблокирована: Готовность подключить manifest.json и превратить страницу в PWA.",
+        "Ветка разблокирована: Архитектура первого экрана для зубрилки слов LingvoZavr."
+    ];
+
+    function updateUI(message) {
+        fill.style.width = depth + '%';
+        percentText.textContent = depth + '%';
+        logScreen.textContent = '> ' + message;
+    }
+
+    document.getElementById('diveBtn').addEventListener('click', () => {
+        if (depth < 100) {
+            depth = Math.min(100, depth + 20);
+            updateUI(`Опыт зафиксирован. Нейронная колея углублена до ${depth}%.`);
+        } else {
+            updateUI('Базовый паттерн закреплён на 100%! Пора изучать код и масштабировать.');
+        }
+    });
+
+    document.getElementById('branchBtn').addEventListener('click', () => {
+        if (depth < 50) {
+            updateUI('Ошибка: Сначала углубите прямую колею хотя бы до 50% через практику!');
+        } else {
+            const randomBranch = branches[Math.floor(Math.random() * branches.length)];
+            updateUI(randomBranch);
+        }
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', () => {
+        depth = 15;
+        updateUI('Сброс до исходного состояния. Готов к новому эксперименту.');
+    });
+
+    // Пасхалка D-Rex
+    let clicks = 0;
+    document.getElementById('drexBtn').addEventListener('click', () => {
+        clicks++;
+        if (clicks === 3) {
+            updateUI('🦖 D-REX ACTIVATED: Код чист, ноль лишних зависимостей. Погнали пилить!');
+            clicks = 0;
+        } else {
+            updateUI(`Клик по тотему (${clicks}/3)...`);
+        }
+    });
+
+        // Регистрация Service Worker для PWA
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js')
+            .then(() => console.log('💎🦖 PWA Engine: Офлайн-режим готов!'))
+            .catch((err) => console.error('Ошибка PWA:', err));
+    }
+
+</script>
+
+</body>
+</html>
